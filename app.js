@@ -20,6 +20,9 @@ const bookingRouter = require("./routes/bookingRoutes");
 
 const app = express().use("*", cors({ origin: true, credentials: true }));
 
+// testing for secure https connections, especially for x-forwarded-proto header
+app.enable("trsut proxy");
+
 // app.set("view engine", "html");
 app.engine(
     "hbs",
