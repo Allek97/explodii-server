@@ -5,6 +5,7 @@ const User = require("./../models/userModel");
 const catchAsync = require("./../utils/catchAsync");
 const AppError = require("./../utils/appError");
 const Email = require("./../utils/email");
+const { NONAME } = require("dns");
 
 const signToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -21,6 +22,7 @@ const createSendToken = (user, statusCode, req, res) => {
         ),
         httpOnly: false,
         secure: req.secure || req.headers["x-forwarded-proto"] === "https",
+        sameSite: "none",
     };
 
     res.cookie("jwt", token, cookieOptions);
