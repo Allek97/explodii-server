@@ -18,10 +18,13 @@ const userRouter = require("./routes/userRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
 const bookingRouter = require("./routes/bookingRoutes");
 
+// Access-Control-Allow-Origin *
+// TODO: When front-end is deployed make sure to only allow my explodii app to make request to my backend api
+// const app = express().use("*", cors({ origin: "www.explodii.com", credentials: true }));
 const app = express().use("*", cors({ origin: true, credentials: true }));
 
 // testing for secure https connections, especially for x-forwarded-proto header
-app.enable("trsut proxy");
+app.enable("trust proxy");
 
 // app.set("view engine", "html");
 app.engine(
