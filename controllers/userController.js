@@ -45,10 +45,7 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
         .toFormat("jpeg")
         .jpeg({ quality: 90 })
         .toFile(
-            path.join(
-                __dirname,
-                `../../frontend/src/assets/img/users/${req.file.filename}`
-            )
+            path.join(__dirname, `../assets/img/users/${req.file.filename}`)
         );
 
     next();

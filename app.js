@@ -43,7 +43,7 @@ app.set("views", path.join(__dirname, "views"));
 
 // 1) GLOBAL MIDDLEWARES
 // Serving static files
-app.use("/static", express.static(path.join(__dirname, "../frontend/public/")));
+app.use("/static", express.static(path.join(__dirname, "../backend/assets/")));
 
 // Set security HTTP headers
 app.use(helmet());
