@@ -26,6 +26,9 @@ const app = express().use("*", cors({ origin: true, credentials: true }));
 // testing for secure https connections, especially for x-forwarded-proto header
 app.enable("trust proxy");
 
+app.options("*", cors());
+// app.options("api/v1/tours/:id",cors());
+
 // app.set("view engine", "html");
 app.engine(
     "hbs",
