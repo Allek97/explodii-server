@@ -51,9 +51,9 @@ exports.signup = catchAsync(async (req, res, next) => {
     // TODO: Change it in production
 
     // const url = `${req.protocol}://${req.get("host")}/me`;
-    const url = `${req.protocol}://${req.get("host")}`;
+    // const url = `${req.protocol}://${req.get("host")}`;
 
-    await new Email(newUser, url).sendRegistration();
+    // await new Email(newUser, url).sendRegistration();
 
     createSendToken(newUser, 201, req, res);
 });
