@@ -56,10 +56,7 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
         .jpeg({ quality: 90 })
         .toFile(path.join(__dirname, `../uploads/${req.file.filename}`));
 
-    await uploadFile(
-        `E:/apps/explotours/root/backend/uploads/${req.file.filename}`,
-        req.file.filename
-    );
+    await uploadFile(`uploads/${req.file.filename}`, req.file.filename);
 
     next();
 });
