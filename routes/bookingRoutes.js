@@ -12,7 +12,7 @@ router
     .route("/my-bookings")
     .get(bookingController.getMe, bookingController.getBooking);
 
-router.route("/order/:sessionId").get(bookingController.getOrderStatus);
+router.route("/order/:session_id").get(bookingController.getOrderStatus);
 
 router.use(authController.restrictTo("admin", "lead-guide"));
 

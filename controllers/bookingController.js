@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const Tour = require("../models/tourModel");
 const User = require("../models/userModel");
@@ -82,9 +83,9 @@ exports.webhookCheckout = (req, res, next) => {
 };
 
 exports.getOrderStatus = catchAsync(async (req, res, next) => {
-    const { sessionId } = req.params;
+    const { session_id } = req.params;
 
-    if (sessionId) {
+    if (session_id) {
         const session = await stripe.checkout.sessions.retrieve(
             req.query.session_id
         );
