@@ -13,7 +13,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         // success_url: `${process.env.CLIENT_URL}/excursions/?session_id={CHECKOUT_SESSION_ID}&tour_id=${tour._id}`,
-        success_url: `${process.env.CLIENT_URL}/account/`,
+        success_url: `${process.env.CLIENT_URL}/account/?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${process.env.CLIENT_URL}/excursions/${tour.slug}`,
         customer_email: req.user.email,
         client_reference_id: req.params.tourId,
@@ -80,6 +80,26 @@ exports.webhookCheckout = (req, res, next) => {
 
     res.status(200).json({ received: true });
 };
+
+exports.getOrderStatus = catchAsync(async (req, res, next) => {
+    const { sessionId } = req.params;
+
+    if (sessionId) {
+        const session = await stripe.checkout.sessions.retrieve(
+            req.query.session_id
+        );
+        const tour = session.client_reference_id;
+        const user = (await User.findOne({ email: session.customer_email })).id;
+        const price = session.amount_total / 100;
+
+        res.status(200).json({
+            status: "successful purchase",
+            tour,
+            user,
+            price,
+        });
+    }
+});
 
 exports.createBooking = factory.createOne(Booking);
 exports.getBooking = factory.getOne(Booking);
