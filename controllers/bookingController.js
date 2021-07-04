@@ -87,17 +87,19 @@ exports.getOrderStatus = catchAsync(async (req, res, next) => {
 
     if (session_id) {
         const session = await stripe.checkout.sessions.retrieve(session_id);
-        // const tour = session.client_reference_id;
-        // const user = (await User.findOne({ email: session.customer_email })).id;
-        // const price = session.amount_total / 100;
+        const tour = session.client_reference_id;
+        const user = (await User.findOne({ email: session.customer_email })).id;
+        const price = session.amount_total / 100;
 
-        const customer = await stripe.customers.retrieve(
-            session.customer_email
-        );
+        // const customer = await stripe.customers.retrieve(
+        //     session.customer_email
+        // );
 
         res.status(200).json({
             status: "successful purchase",
-            customer,
+            tour,
+            user,
+            price,
         });
     }
 });
