@@ -65,7 +65,7 @@ app.use("/api", limiter);
 // We need the body coming to the endpoint as raw and then be json parsed in the next express middleware
 app.post(
     "/webhook-checkout",
-    express.raw({ type: "/" }),
+    express.raw({ type: "application/json" }),
     bookingController.webhookCheckout
 );
 
