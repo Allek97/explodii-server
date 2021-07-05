@@ -10,7 +10,7 @@ router.get("/checkout-session/:tourId", bookingController.getCheckoutSession);
 
 router
     .route("/my-bookings")
-    .get(bookingController.getMe, bookingController.getBooking);
+    .get(bookingController.getMe, bookingController.getMyBookings);
 
 router.route("/order/:session_id").get(bookingController.getOrderStatus);
 

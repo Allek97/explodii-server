@@ -50,7 +50,6 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 // });
 
 exports.getMe = catchAsync(async (req, res, next) => {
-    // This is only TEMPORARY, because it's UNSECURE: everyone can make bookings without paying
     req.params.id = req.user.id;
     next();
 });
@@ -102,6 +101,19 @@ exports.getOrderStatus = catchAsync(async (req, res, next) => {
             price,
         });
     }
+});
+
+exports.getMyBookings = catchAsync(async (req, res, next) => {
+    const bookings = await Booking.find({ user: req.user.id });
+
+    const tourIDs = bookings.map((el) => el.tour);
+    const tours = await Tour.find({ _id: { $in: tourIDs } });
+
+    res.status(200).json({
+        status: "success",
+        title: "My bookings",
+        tours,
+    });
 });
 
 exports.createBooking = factory.createOne(Booking);
